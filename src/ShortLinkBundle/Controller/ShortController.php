@@ -40,10 +40,14 @@ class ShortController extends Controller
     }
 
     public function generateAction(Request $request){
+        $host = $request->getSchemeAndHttpHost();
         $data = $request->request->all();
-
         $original = isset($data['original']) ? $data['original'] : null;
         $alias =  isset($data['alias']) ? $data['alias'] : null;
+
+        if($original === $host."/".$alias){
+            return new JsonResponse(array('status' => 'error', 'msg' => "Can not save circular reference"));
+        }
 
         if(isset($original)){
             if($this->isValidUrl($original)){
