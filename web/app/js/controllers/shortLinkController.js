@@ -57,8 +57,10 @@ myApp.controller('shortLinkController', function($scope, $http, $httpParamSerial
         $http.get('/links').then(
             function success(response) {
                 scope.listOfUrl = response.data;
-                var grid = angular.element(document.querySelector('#grid'));
-                grid.removeClass('hide');
+                if(scope.listOfUrl.length > 0){
+                    var grid = angular.element(document.querySelector('#grid'));
+                    grid.removeClass('hide');
+                }
             },
             function error(response) {
                 var modal = angular.element(document.querySelector('#modal'));

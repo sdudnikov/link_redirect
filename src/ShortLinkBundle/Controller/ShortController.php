@@ -62,7 +62,7 @@ class ShortController extends Controller
                     $session->set('user_id', $userId);
                 }
 
-                $alias = !isset($alias) ? $this->generateShortUrl() : $alias;
+                $alias = empty($alias) ? $this->generateShortUrl() : $alias;
 
                 $newUrl = new Url();
                 $newUrl->setAlias($alias);
